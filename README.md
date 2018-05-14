@@ -1,0 +1,4 @@
+Coalesce Dotnet CLI Template
+============================
+
+
