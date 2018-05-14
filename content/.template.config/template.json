@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/template",
-  "author": "IntelliTEct",
+  "author": "IntelliTect",
   "classifications": [ "Web", "MVC", "KnockoutJS" ],
   "identity": "IntelliTect.Coalesce.KnockoutJS.Template",
   "name": "IntelliTect Coalesce Web App KnockoutJS Template",
@@ -9,13 +9,6 @@
     "language": "C#",            
     "type":"project"
   },
-  "sourceName": "MyProject.Coalesce",              
-  "preferNameDirectory":true,
-  "symbols": {
-    "rootNamespace":{
-      "type": "parameter",
-      "defaultValue": "MyCoalesce.Ko.App",
-      "replaces": "Coalesce.Starter"
-    }
-  }
+  "sourceName": "Coalesce.Starter",              
+  "preferNameDirectory":true
 }

@@ -1,0 +1,8 @@
+{
+  "webProject": {
+    "projectFile": "./Coalesce.Starter.Web/Coalesce.Starter.Web.csproj"
+  },
+  "dataProject": {
+    "projectFile": "./Coalesce.Starter.Data/Coalesce.Starter.Data.csproj"
+  }
+}
