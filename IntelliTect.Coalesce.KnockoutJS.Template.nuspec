@@ -3,9 +3,11 @@
   <metadata>
     <id>IntelliTect.Coalesce.KnockoutJS.Template</id>
     <version>1.0.0</version>
+    <title>Coalesce project template with the KnockoutJS generators</title>
     <authors>IntelliTect</authors>
     <owners>IntelliTect</owners>
-    <title>Coalesce project template with the KnockoutJS generators</title>
+    <projectUrl>https://github.com/IntelliTect/Coalesce.KnockoutJS.Template</projectUrl>
+    <licenseUrl>https://raw.githubusercontent.com/IntelliTect/Coalesce.KnockoutJS.Template/master/license.txt</licenseUrl>
     <description>
 From a command prompt, run:
 
@@ -18,12 +20,9 @@ CMD> dotnet new coalesceko [-n Optional.Name]
 If you don't specify a name, the template will infer one from the name of the folder you are in.
     </description>
     <summary>Creates a new Coalesce application with the KnockoutJS generators. http://coalesce.intellitect.com/</summary>
+    <copyright>© IntelliTect 2018</copyright>
     <language>en-US</language>
-    <projectUrl>https://github.com/IntelliTect/Coalesce.KnockoutJS.Template</projectUrl>
-    <licenseUrl>https://raw.githubusercontent.com/IntelliTect/Coalesce.KnockoutJS.Template/master/license.txt</licenseUrl>
     <tags>IntelliTect Coalesce MVC API Web Framework Generation Generator</tags>
-    <repositoryUrl>https://github.com/IntelliTect/Coalesce.KnockoutJS.Template</repositoryUrl>
-    <repositoryType>git</repositoryType>
     <packageTypes>
       <packageType name="Template" />
     </packageTypes>
