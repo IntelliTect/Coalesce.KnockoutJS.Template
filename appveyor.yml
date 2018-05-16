@@ -4,6 +4,9 @@ branches:
   - master
 image: Visual Studio 2017
 build_script:
-- pwsh: nuget pack IntelliTect.Coalesce.KnockoutJS.Template.nuspec -Version $env:APPVEYOR_BUILD_NUMBER
+- pwsh: >-
+    $ver = "1.0." + $($env:APPVEYOR_BUILD_NUMBER)
+
+    nuget pack IntelliTect.Coalesce.KnockoutJS.Template.nuspec -Version $ver
 test: off
 deploy: off
