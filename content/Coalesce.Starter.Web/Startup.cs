@@ -32,8 +32,8 @@ namespace Coalesce.Starter.Web
             Env = env;
         }
 
-        public IConfigurationRoot Configuration { get; }
-        public IHostingEnvironment Env { get; }
+        private IConfigurationRoot Configuration { get; }
+        private IHostingEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
@@ -48,6 +48,8 @@ namespace Coalesce.Starter.Web
                 options.UseSqlServer(connString));
 
             services.AddCoalesce<AppDbContext>();
+
+            services.AddCors();
 
             services.AddMvc().AddJsonOptions(options =>
             {
