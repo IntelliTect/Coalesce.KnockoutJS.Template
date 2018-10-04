@@ -7,13 +7,11 @@
     <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
-  
   <ItemGroup>
-    <Content Update="Views\**\*;appsettings.json;web.config">
+    <Content Update="wwwroot\**\*;Views\**\*;appsettings.json;web.config">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Coalesce.Starter.Data\Coalesce.Starter.Data.csproj" />
   </ItemGroup>
