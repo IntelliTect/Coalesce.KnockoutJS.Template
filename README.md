@@ -1,5 +1,7 @@
 # Coalesce KnockoutJS Dotnet CLI Template
 
+[![Build status](https://ci.appveyor.com/api/projects/status/is5s6a178hitgonv/branch/master?svg=true)](https://ci.appveyor.com/project/IntelliTect/coalesce-knockoutjs-template/branch/master)
+
 This template will set up a barebones Coalesce solution using the
 KnockoutJS generators which you can build your app upon.
 
