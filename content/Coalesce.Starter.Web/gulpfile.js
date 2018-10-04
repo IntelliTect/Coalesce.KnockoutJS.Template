@@ -121,7 +121,9 @@ gulp.task("ts:local",
 
 gulp.task('ts', function () {
     // compile the root generated code into an app.js file
-    var rootAppJsProject = typescriptCompiler.createProject('tsconfig.json', { outFile: 'app.js' });
+    var rootAppJsProject = typescriptCompiler.createProject('tsconfig.json', {
+        outFile: 'app.js'
+    });
     var rootApp = gulp.src([paths.scripts + '/Generated/{Ko,ko}*.ts', paths.scripts + '/Partials/*.ts', '!' + paths.scripts + '/*.d.ts'])
         .pipe(sourcemaps.init())
         .pipe(rootAppJsProject());
@@ -161,12 +163,16 @@ gulp.task("ts:watch",
 
 gulp.task("watch",
     ["sass:watch", "ts:watch", "js:watch", "img:watch"],
-    function () {
-    });
+    function () {});
 
 gulp.task("default",
     ["copy-lib", "sass", "ts", "watch"],
-    function () {
-    });
+    function () {});
 
-gulp.task("coalesce", shell.task([`dotnet coalesce`], { verbose: true }));
+gulp.task("init",
+    ["copy-lib", "sass", "ts", "copy-js"],
+    function () {});
+
+gulp.task("coalesce", shell.task([`dotnet coalesce`], {
+    verbose: true
+}));
