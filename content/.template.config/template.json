@@ -1,14 +1,40 @@
 {
   "$schema": "http://json.schemastore.org/template",
   "author": "IntelliTect",
-  "classifications": [ "Web", "MVC", "KnockoutJS" ],
+  "classifications": ["Web", "MVC", "KnockoutJS"],
   "identity": "IntelliTect.Coalesce.KnockoutJS.Template",
   "name": "IntelliTect Coalesce Web App KnockoutJS Template",
   "shortName": "coalesceko",
   "tags": {
-    "language": "C#",            
-    "type":"project"
+    "language": "C#",
+    "type": "project"
   },
-  "sourceName": "Coalesce.Starter",              
-  "preferNameDirectory":true
+  "sourceName": "Coalesce.Starter",
+  "preferNameDirectory": true,
+  "symbols": {
+    "skipRestore": {
+      "type": "parameter",
+      "datatype": "bool",
+      "description": "If specified, skips the automatic restore of the projects on create.",
+      "defaultValue": "false"
+    }
+  },
+  "primaryOutputs": [{
+      "path": "Coalesce.Starter.Data\\Coalesce.Starter.Data.csproj"
+    },
+    {
+      "path": "Coalesce.Starter.Web\\Coalesce.Starter.Web.csproj"
+    }
+  ],
+  "postActions": [
+    {
+      "condition": "(!skipRestore)",
+      "description": "Restore NuGet packages required by this solution.",
+      "manualInstructions": [{
+        "text": "Run 'dotnet restore'"
+      }],
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true
+    }
+  ]
 }
