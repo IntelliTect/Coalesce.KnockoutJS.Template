@@ -7,7 +7,7 @@ module ViewModels {
     
     export class ApplicationUser extends Coalesce.BaseViewModel {
         public readonly modelName = "ApplicationUser";
-        public readonly primaryKeyName: keyof this = "applicationUserId";
+        public readonly primaryKeyName = "applicationUserId";
         public readonly modelDisplayName = "Application User";
         public readonly apiController = "/ApplicationUser";
         public readonly viewController = "/ApplicationUser";

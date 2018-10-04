@@ -48,7 +48,7 @@ module Coalesce {
         /**
             Gets the underlying observable that stores the object's explicit configuration value.
         */
-        public raw = (name: keyof this): KnockoutObservable<any> | undefined => {
+        public raw = (name: Extract<keyof this, string>): KnockoutObservable<any> | undefined => {
             return (this as any)["_" + name];
         }
     }
@@ -235,7 +235,7 @@ module Coalesce {
         /** True if last invocation of method was successful. */
         public wasSuccessful: KnockoutObservable<boolean | null> = ko.observable(null);
 
-        constructor (protected parent: TParent) { }
+        constructor(protected parent: TParent) { }
 
         protected abstract loadResponse: (data: ApiResult, callback?: (result: TResult) => void, reload?: boolean) => void;
 
@@ -346,16 +346,16 @@ module Coalesce {
 
     export abstract class BaseViewModel implements LoadableViewModel, ClientMethodParent {
 
-        protected readonly abstract modelName: string;
-        protected readonly abstract modelDisplayName: string;
+        public readonly abstract modelName: string;
+        public readonly abstract modelDisplayName: string;
 
         // Typing this property as keyof this prevents us from using BaseViewModel amorphously.
         // It prevents assignment of an arbitrary derived type to a variable/parameter expecting BaseViewModel
         // because primaryKeyName on a derived type is wider than it is on BaseViewModel.
-        protected readonly abstract primaryKeyName: string;
+        public readonly abstract primaryKeyName: string;
 
         public readonly abstract apiController: string;
-        protected readonly abstract viewController: string;
+        public readonly abstract viewController: string;
 
         /**
             List of all possible data sources that can be set on the dataSource property.
@@ -542,10 +542,9 @@ module Coalesce {
             if (!this.isLoading()) {
                 if (this.validate()) {
                     if (this.coalesceConfig.showBusyWhenSaving()) this.coalesceConfig.onStartBusy()(this);
+                    this.cancelAutoSave();
                     this.isSaving(true);
-
                     var url = `${this.coalesceConfig.baseApiUrl()}${this.apiController}/Save?includes=${this.includes}&${this.dataSource.getQueryString()}`
-
                     return $.ajax({ method: "POST", url: url, data: this.saveToDto(), xhrFields: { withCredentials: true } })
                         .done((data: ItemResult) => {
                             this.isDirty(false);
@@ -599,7 +598,7 @@ module Coalesce {
                 this.coalesceConfig.onStartBusy()(this);
 
                 var url = `${this.coalesceConfig.baseApiUrl()}${this.apiController}/Get/${id}?includes=${this.includes}&${this.dataSource.getQueryString()}`
-                
+
                 return $.ajax({ method: "GET", url: url, xhrFields: { withCredentials: true } })
                     .done((data: ItemResult) => {
                         this.errorMessage(null);
@@ -608,7 +607,6 @@ module Coalesce {
                         if (typeof(callback) == "function") callback(this);
                     })
                     .fail((xhr: JQueryXHR) => {
-                        this.isLoaded(false);
                         const data: ItemResult | null = xhr.responseJSON
                         var errorMsg = "Could not load " + this.modelName + " with ID = " + id;
                         if (data && data.message) errorMsg = data.message;
@@ -761,9 +759,8 @@ module Coalesce {
                 this.isDirty(true);
                 if (this.coalesceConfig.autoSaveEnabled()) {
                     // Batch saves.
-                    if (this.saveTimeout) clearTimeout(this.saveTimeout);
+                    this.cancelAutoSave();
                     this.saveTimeout = setTimeout(() => {
-                        this.saveTimeout = 0;
                         // If we have a save in progress, wait...
                         if (this.isSaving()) {
                             this.autoSave();
@@ -772,6 +769,14 @@ module Coalesce {
                         }
                     }, this.coalesceConfig.saveTimeoutMs());
                 }
+            }
+        }
+
+        /** Cancels a pending autosave if it exists. */
+        public cancelAutoSave = (): void => {
+            if (this.saveTimeout) {
+                clearTimeout(this.saveTimeout);
+                this.saveTimeout = 0;
             }
         }
 
@@ -928,7 +933,6 @@ module Coalesce {
                     var errorMsg = "Unknown Error";
                     if (xhr.responseJSON && xhr.responseJSON.message) errorMsg = xhr.responseJSON.message;
                     this.message(errorMsg);
-                    this.isLoaded(false);
 
                     if (this.coalesceConfig.showFailureAlerts())
                         this.coalesceConfig.onFailure()(this, "Could not get list of " + this.modelName + " items: " + errorMsg);
